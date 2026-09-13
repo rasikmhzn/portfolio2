@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rasik Maharjan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap');
+
+  :root {
+    --ink: #0a0d12;
+    --ink-2: #10151d;
+    --panel: #141a24;
+    --blaugrana-blue: #3b1660;
+    --blaugrana-blue-bright: #6d28d9;
+    --garnet: #4c1554;
+    --garnet-bright: #9333ea;
+    --gold: #e8b84b;
+    --paper: #eceef1;
+    --muted: #7c8798;
+    --line: rgba(236, 238, 241, 0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ink); color: var(--paper); font-family: 'Archivo', sans-serif; line-height: 1.5; overflow-x: hidden; }
+  ::selection { background: var(--garnet); color: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+
+  .noise {
+    position: fixed; inset: 0; pointer-events: none; opacity: 0.035; z-index: 999;
+    background-image: url("data:image/svg+xml,...noise-texture...");
+  }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 28px 6vw; mix-blend-mode: difference;
+  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 18px; letter-spacing: 0.5px; }
+  nav { display: flex; gap: 36px; font-size: 14px; font-weight: 500; }
+  nav a { position: relative; padding-bottom: 4px; }
+  nav a::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 0%; height: 1px;
+    background: var(--paper); transition: width 0.35s ease;
+  }
+  nav a:hover::after { width: 100%; }
+
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 6vw 8vh; position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(109,40,217,0.5), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 90% 20%, rgba(76,21,84,0.45), transparent 60%),
+      var(--ink);
+  }
+  .hero-stripe {
+    position: absolute; top: 0; bottom: 0; right: 12%; width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent); opacity: 0.5;
+  }
+  .hero-eyebrow { font-size: 14px; color: var(--gold); font-weight: 600; margin-bottom: 18px; letter-spacing: 0.3px; }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif; font-size: clamp(40px, 9vw, 120px);
+    line-height: 0.95; letter-spacing: -0.02em; text-transform: uppercase;
+  }
+  .hero h1 .l2 { color: var(--muted); }
+  .hero-sub { margin-top: 28px; max-width: 520px; font-size: 17px; color: var(--muted); }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 48px; margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--line); }
+  .hero-meta div span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .hero-meta div strong { font-size: 15px; font-weight: 600; }
+
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 6vw; margin-bottom: 48px; }
+  .section-head h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 5vw, 56px); text-transform: uppercase; }
+  .section-head .count { font-size: 14px; color: var(--muted); }
+  section.block { padding: 14vh 0 10vh; }
+
+  /* EDUCATION TIMELINE */
+  .timeline { padding: 0 6vw; display: flex; flex-direction: column; gap: 0; }
+  .tl-item {
+    display: grid; grid-template-columns: 140px 1fr; gap: 36px;
+    padding: 32px 0; border-top: 1px solid var(--line); position: relative;
+  }
+  .tl-item:last-child { border-bottom: 1px solid var(--line); }
+  .tl-year { font-family: 'Archivo Black', sans-serif; font-size: 15px; color: var(--gold); }
+  .tl-body h3 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+  .tl-body p { color: var(--muted); font-size: 15px; max-width: 560px; }
+  .tl-tag {
+    display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 20px; border: 1px solid var(--blaugrana-blue-bright);
+    color: var(--blaugrana-blue-bright);
+  }
+  .tl-item:nth-child(even) .tl-tag { border-color: var(--garnet-bright); color: var(--garnet-bright); }
+
+  /* ABOUT */
+  .about {
+    padding: 14vh 6vw; background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start;
+  }
+  .about-lead { font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 3.2vw, 40px); line-height: 1.25; text-transform: uppercase; }
+  .about-lead .accent { color: var(--garnet-bright); }
+  .about-body p { color: var(--muted); margin-bottom: 20px; font-size: 15.5px; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+  .stat strong { display: block; font-family: 'Archivo Black', sans-serif; font-size: 30px; color: var(--paper); }
+  .stat span { font-size: 13px; color: var(--muted); }
+  .stat { border-left: 2px solid var(--blaugrana-blue-bright); padding-left: 14px; }
+
+  .contact {
+    padding: 16vh 6vw 10vh; text-align: center; position: relative;
+    background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(109,40,217,0.3), transparent 65%), var(--ink);
+  }
+  .contact h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(36px, 7vw, 84px); text-transform: uppercase; line-height: 0.95; }
+  .contact-email {
+    display: inline-block; margin-top: 32px; font-size: 18px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--paper); transition: color 0.3s ease, border-color 0.3s ease;
+  }
+  .contact-email:hover { color: var(--gold); border-color: var(--gold); }
+
+  footer { padding: 28px 6vw; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .tl-item { grid-template-columns: 1fr; gap: 10px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    .hero-meta { flex-wrap: wrap; gap: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  /* PORTRAIT */
+  .portrait {
+    position: relative;
+    padding: 6vh 6vw 4vh;
+    display: flex;
+    justify-content: center;
+    background:
+      radial-gradient(ellipse 55% 55% at 50% 35%, rgba(109,40,217,0.4), transparent 65%),
+      var(--ink);
+  }
+  .portrait-frame {
+    position: relative;
+    width: min(380px, 78vw);
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+  }
+  .portrait-caption {
+    text-align: center;
+    margin-top: -18px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<header>
+  <div class="logo">RASIK MAHARJAN</div>
+  <nav>
+    <a href="#education">Education</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-stripe"></div>
+  <div class="hero-eyebrow">Student — Kathmandu, Nepal</div>
+  <h1>Rasik<br><span class="l2">Maharjan</span></h1>
+  <p class="hero-sub">Grade 11 student at Nisarga Batika, based in Ravibhawan, Kathmandu. Building this space to track my journey so far — and what's next.</p>
+  <div class="hero-meta">
+    <div><span>Based in</span><strong>Ravibhawan, Kathmandu</strong></div>
+    <div><span>Currently</span><strong>Grade 11, Nisarga Batika</strong></div>
+    <div><span>SEE GPA</span><strong>3.86</strong></div>
+  </div>
+</section>
+
+<section class="portrait">
+  <div class="portrait-frame">
+    <img src="data:image/png;base64,[your embedded photo data]" alt="Rasik Maharjan">
+  </div>
+</section>
+
+<section class="block" id="education">
+  <div class="section-head">
+    <h2>Education</h2>
+    <span class="count">Timeline</span>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">Early Years</div>
+      <div class="tl-body">
+        <h3>New Spring School</h3>
+        <p>Ravibhawan, Kathmandu — studied here from the beginning through UKG.</p>
+        <span class="tl-tag">Nursery – UKG</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">Grade 8</div>
+      <div class="tl-body">
+        <h3>Little Angels School</h3>
+        <p>Hattiban, Lalitpur — completed school here, including the district-level BLE exam.</p>
+        <span class="tl-tag">BLE GPA: 3.58</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div class="tl-body">
+        <h3>SEE Examination</h3>
+        <p>Completed school (SEE) from Little Angels School with a strong result.</p>
+        <span class="tl-tag">SEE GPA: 3.86</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">Now</div>
+      <div class="tl-body">
+        <h3>Nisarga Batika</h3>
+        <p>Currently studying in college, continuing to build on what I've learned so far.</p>
+        <span class="tl-tag">In Progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-lead">Still figuring it out — and enjoying the <span class="accent">process</span>.</div>
+  <div class="about-body">
+    <p>I'm a student from Kathmandu, currently in Grade 11 at Nisarga Batika. Outside of schoolwork, I'm a huge FC Barcelona fan — that's actually where the color palette of this site comes from.</p>
+    <p>This portfolio is a work in progress, built as a place to track what I've done and add to it as I go.</p>
+    <div class="stats">
+      <div class="stat"><strong>3.58</strong><span>BLE GPA</span></div>
+      <div class="stat"><strong>3.86</strong><span>SEE GPA</span></div>
+      <div class="stat"><strong>3</strong><span>Schools attended</span></div>
+      <div class="stat"><strong>11</strong><span>Current grade</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Get in touch</h2>
+  <a class="contact-email" href="mailto:rasikmhzn@gmail.com">rasikmhzn@gmail.com</a>
+</section>
+
+<footer>
+  <span>© 2026 Rasik Maharjan</span>
+  <span>Kathmandu, Nepal</span>
+</footer>
+
+</body>
+</html>
